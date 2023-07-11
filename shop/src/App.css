@@ -45,3 +45,8 @@
   background-size: cover;
   background-position: center;
 }
+
+a {
+  text-decoration: none !important;
+  color: black !important;
+}
