@@ -45,5 +45,7 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'react/no-unknown-property': ['error', { ignore: ['css'] }],
         'import/no-extraneous-dependencies': 'off',
+        'linebreak-style': 'off',
+        'import/prefer-default-export': 'off',
     },
 };
