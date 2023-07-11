@@ -22,10 +22,10 @@ function App() {
             <div className="container">
                 <div className="row">
                     {
-                        products.map(({ id, ...product }) => (
+                        products.map((i) => (
                             <Product
-                                key={id}
-                                product={product}
+                                key={i.id}
+                                product={i}
                             />
                         ))
                     }
@@ -35,10 +35,14 @@ function App() {
     );
 }
 
-function Product({ product: { title, content, img } }) {
+function Product({ product: { id, title, content } }) {
     return (
         <div className="col-md-4">
-            <img src={img} alt={title} width="80%" />
+            <img
+                src={`https://codingapple1.github.io/shop/shoes${id + 1}.jpg`}
+                alt={title}
+                width="80%"
+            />
             <h4>{title}</h4>
             <p>{content}</p>
         </div>
