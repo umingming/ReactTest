@@ -15,6 +15,7 @@ function App() {
                     </Nav>
                 </Container>
             </Navbar>
+            <img src={`${process.env.PUBLIC_URL}/img/main.jpg`} alt="main" />
         </div>
     );
 }
