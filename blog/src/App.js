@@ -5,6 +5,7 @@ function App() {
     const name = '유미네';
     const [titles, setTitle] = useState(['나', '다', '가']);
     const [modalTitle, setModalTitle] = useState('');
+    const [newTitle, setNewTitle] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
 
     // function changeTitle(title) {
@@ -34,6 +35,16 @@ function App() {
         setModalVisible(!isModalVisible);
     }
 
+    function createPost() {
+        const copy = [newTitle, ...titles];
+        setTitle(copy);
+    }
+
+    function removePost(title) {
+        const copy = [...titles].filter((i) => i !== title);
+        setTitle(copy);
+    }
+
     return (
         <div className="App">
             <div>
@@ -41,13 +52,28 @@ function App() {
             </div>
             <button type="button" onClick={sortTitle}>정렬</button>
             <button type="button" data-index="0" onClick={updateTitle}>수정</button>
-            <button type="button" onClick={toggleModal}>모달</button>
+            <button type="button" onClick={toggleModal}>
+                모달
+            </button>
+            <div>
+                <input
+                    type="text"
+                    onChange={({ target: { value } }) => { setNewTitle(value); }}
+                />
+                <button
+                    type="button"
+                    onClick={createPost}
+                >
+                    추가
+                </button>
+            </div>
             {
                 titles.map((i) => (
                     <Post
                         key={i}
                         title={i}
                         showModal={() => showModal(i)}
+                        remove={() => removePost(i)}
                     />
                 ))
             }
@@ -60,11 +86,12 @@ function App() {
                         />
                     ) : null
             }
+            <Modal2 />
         </div>
     );
 }
 
-function Post({ title, showModal }) {
+function Post({ title, showModal, remove }) {
     const [likes, setLikes] = useState(0);
     function increaseLikes() {
         setLikes(likes + 1);
@@ -74,6 +101,7 @@ function Post({ title, showModal }) {
             <h4>
                 { title }
                 <button type="button" onClick={showModal}>선택</button>
+                <button type="button" onClick={remove}>삭제</button>
                 <button type="button" onClick={increaseLikes}>👍</button>
                 { likes }
             </h4>
@@ -92,4 +120,27 @@ function Modal({ title, close }) {
         </div>
     );
 }
+class Modal2 extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            name: 'kim',
+        };
+    }
+
+    render() {
+        return (
+            <div>
+                { this.state.name }
+                <button
+                    type="button"
+                    onClick={() => { this.setState({ name: 'Lee' }); }}
+                >
+                    변경
+                </button>
+            </div>
+        );
+    }
+}
+
 export default App;
