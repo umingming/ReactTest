@@ -4,7 +4,12 @@ import './App.css';
 import {
     Routes, Route, Link, useParams, useNavigate, Outlet,
 } from 'react-router-dom';
+import styled from 'styled-components';
 import data from './assets/data';
+
+const YellowButton = styled.button`
+    background: yellow;
+`;
 
 function App() {
     const brand = "이천's캔들";
@@ -13,6 +18,7 @@ function App() {
     return (
         <div className="App">
             <Navbar bg="light" data-bs-theme="light">
+                <YellowButton />
                 <Container>
                     <Navbar.Brand
                         onClick={() => { navigate('/'); }}
