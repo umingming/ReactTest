@@ -3,15 +3,9 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import {
     Routes, Route, Link, useNavigate, Outlet,
 } from 'react-router-dom';
-import styled from 'styled-components';
 import Detail from './components/Detail';
 import './App.module.css';
 import data from './assets/data';
-
-const YellowButton = styled.button`
-    background: ${(props) => props.bg};
-    color: ${(props) => (props.bg === 'blue' ? 'white' : 'black')}
-`;
 
 function App() {
     const brand = "이천's캔들";
@@ -20,8 +14,6 @@ function App() {
     return (
         <div className="App">
             <Navbar bg="light" data-bs-theme="light">
-                <YellowButton bg="blue">버튼</YellowButton>
-                <YellowButton bg="orange">버튼</YellowButton>
                 <Container>
                     <Navbar.Brand
                         onClick={() => { navigate('/'); }}
