@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import './App.css';
 import {
-    Routes, Route, Link, useParams, useNavigate, Outlet,
+    Routes, Route, Link, useNavigate, Outlet,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import Detail from './components/Detail';
+import './App.module.css';
 import data from './assets/data';
 
 const YellowButton = styled.button`
-    background: yellow;
+    background: ${(props) => props.bg};
+    color: ${(props) => (props.bg === 'blue' ? 'white' : 'black')}
 `;
 
 function App() {
@@ -18,7 +20,8 @@ function App() {
     return (
         <div className="App">
             <Navbar bg="light" data-bs-theme="light">
-                <YellowButton />
+                <YellowButton bg="blue">버튼</YellowButton>
+                <YellowButton bg="orange">버튼</YellowButton>
                 <Container>
                     <Navbar.Brand
                         onClick={() => { navigate('/'); }}
@@ -108,31 +111,6 @@ function Product({ product: { id, title, content } }) {
                 <h4>{title}</h4>
                 <p>{content}</p>
             </Link>
-        </div>
-    );
-}
-
-function Detail() {
-    const { id } = useParams();
-    const { title, content, price } = data.find((i) => i.id === +id);
-
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6">
-                    <img
-                        src={`https://codingapple1.github.io/shop/shoes${+id + 1}.jpg`}
-                        alt=""
-                        width="100%"
-                    />
-                </div>
-                <div className="col-md-6">
-                    <h4 className="pt-5">{title}</h4>
-                    <p>{content}</p>
-                    <p>{price}</p>
-                    <button type="button" className="btn btn-danger">주문하기</button>
-                </div>
-            </div>
         </div>
     );
 }
