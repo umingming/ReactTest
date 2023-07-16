@@ -50,3 +50,12 @@ a {
   text-decoration: none !important;
   color: black !important;
 }
+.start {
+  opacity: 0;
+  color: black;
+}
+.end {
+  opacity: 1;
+  transition: opacity 0.5s;
+  color: pink;
+}

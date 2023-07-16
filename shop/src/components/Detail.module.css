@@ -1,0 +1,8 @@
+.start {
+    opacity: 0;
+    color: pink;
+}
+.end {
+    opacity: 1;
+    transition: opacity 0.5s;
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     useParams,
 } from 'react-router-dom';
@@ -14,6 +14,16 @@ export default function Detail() {
         { title: 'Tab2', content: '내용2', key: 1 },
         { title: 'Tab3', content: '내용3', key: 2 },
     ];
+    useEffect(() => {
+        const $content = document.querySelector('.start');
+        const timer = setTimeout(() => {
+            $content.classList.add('end');
+        }, 100);
+        return () => {
+            clearTimeout(timer);
+            $content.classList.remove('end');
+        };
+    }, [tabIndex]);
 
     return (
         <div className="container">
@@ -45,8 +55,8 @@ export default function Detail() {
                         ))
                     }
                 </Nav>
-                <div>{tabs[tabIndex].content}</div>
             </div>
+            <div className="start">{tabs[tabIndex].content}</div>
         </div>
     );
 }

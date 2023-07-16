@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import Detail from './components/Detail';
-import './App.module.css';
+import './App.css';
 import data from './assets/data';
 
 function App() {
