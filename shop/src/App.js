@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import {
     Routes, Route, Link, useNavigate, Outlet,
 } from 'react-router-dom';
+import axios from 'axios';
 import Detail from './components/Detail';
 import './App.module.css';
 import data from './assets/data';
@@ -74,7 +75,17 @@ function About() {
 }
 
 function Main() {
-    const [products] = useState(data);
+    const [products, setProducts] = useState(data);
+    function updateProducts() {
+        if (products.length !== data.length) {
+            setProducts([...data]);
+        } else {
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then(({ data: more }) => setProducts([...products, ...more]))
+                .catch((error) => console.log(error));
+        }
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -87,6 +98,15 @@ function Main() {
                     ))
                 }
             </div>
+            <button
+                type="button"
+                onClick={updateProducts}
+            >
+                {
+                    products.length === data.length
+                        ? '더보기' : '접기'
+                }
+            </button>
         </div>
     );
 }
