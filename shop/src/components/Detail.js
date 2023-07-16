@@ -9,6 +9,10 @@ import { addCart } from '../store/modules/carts';
 export default function Detail({ products }) {
     const dispatch = useDispatch();
     const id = +useParams().id;
+    const orgRecent = JSON.parse(localStorage.getItem('recent')) ?? [];
+    const newRecent = [...orgRecent.filter((i) => i !== id), id];
+    localStorage.setItem('recent', JSON.stringify(newRecent));
+
     const { title, content, price } = products.find((i) => i.id === +id);
     const [tabIndex, setTabIndex] = useState(0);
     const tabs = [

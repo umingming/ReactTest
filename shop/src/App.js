@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import {
     Routes, Route, Link, useNavigate, Outlet,
 } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import axios from 'axios';
-import Detail from './components/Detail';
-import Cart from './components/Cart';
 import './App.css';
 import data from './assets/data';
+
+const Cart = lazy(() => import('./components/Cart'));
+const Detail = lazy(() => import('./components/Detail'));
 
 function App() {
     const brand = "이천's캔들";
     const navigate = useNavigate();
+    const { data: user, isLoading } = useQuery('user', () => axios.get('https://codingapple1.github.io/userdata.json').then((res) => res.data));
 
     return (
         <div className="App">
@@ -33,30 +36,38 @@ function App() {
                         <Link to="/cart" className="nav-link">Cart</Link>
                         <Nav.Link href="#freshener">Freshener</Nav.Link>
                     </Nav>
+                    <Nav className="ms-auto">
+                        {
+                            isLoading ? '로딩 중' : user?.name
+                        }
+                    </Nav>
                 </Container>
             </Navbar>
-            <Routes>
-                <Route path="/" element={<Main />} />
-                <Route
-                    path="/detail/:id"
-                    element={<Detail products={data} />}
-                />
-                <Route
-                    path="/cart"
-                    element={<Cart />}
-                />
-                <Route path="/about" element={<About />}>
-                    <Route path="member" element={<div>멤버</div>} />
-                </Route>
-                <Route path="/event" element={<Event />}>
-                    <Route path="one" element={<p>첫 주문시 양배추즙</p>} />
-                    <Route path="two" element={<p>생일 기념 쿠폰</p>} />
-                </Route>
-                <Route
-                    path="*"
-                    element={<div>없어요</div>}
-                />
-            </Routes>
+            <Suspense fallback={<div>로딩 중</div>}>
+
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route
+                        path="/detail/:id"
+                        element={<Detail products={data} />}
+                    />
+                    <Route
+                        path="/cart"
+                        element={<Cart />}
+                    />
+                    <Route path="/about" element={<About />}>
+                        <Route path="member" element={<div>멤버</div>} />
+                    </Route>
+                    <Route path="/event" element={<Event />}>
+                        <Route path="one" element={<p>첫 주문시 양배추즙</p>} />
+                        <Route path="two" element={<p>생일 기념 쿠폰</p>} />
+                    </Route>
+                    <Route
+                        path="*"
+                        element={<div>없어요</div>}
+                    />
+                </Routes>
+            </Suspense>
         </div>
     );
 }
