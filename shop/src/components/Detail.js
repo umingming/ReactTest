@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
     useParams,
 } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
-import data from '../assets/data';
+import { addCart } from '../store/modules/carts';
 
-export default function Detail() {
-    const { id } = useParams();
-    const { title, content, price } = data.find((i) => i.id === +id);
+export default function Detail({ products }) {
+    const dispatch = useDispatch();
+    const id = +useParams().id;
+    const { title, content, price } = products.find((i) => i.id === +id);
     const [tabIndex, setTabIndex] = useState(0);
     const tabs = [
         { title: 'Tab1', content: '내용1', key: 0 },
@@ -17,16 +19,16 @@ export default function Detail() {
     useEffect(() => {
         const $content = document.querySelector('.start');
         const timer = setTimeout(() => {
-            $content.classList.add('end');
+            $content?.classList.add('end');
         }, 100);
         return () => {
             clearTimeout(timer);
-            $content.classList.remove('end');
+            $content?.classList.remove('end');
         };
-    }, [tabIndex]);
+    }, []);
 
     return (
-        <div className="container">
+        <div className="start container">
             <div className="row">
                 <div className="col-md-6">
                     <img
@@ -40,7 +42,14 @@ export default function Detail() {
                     <p>{content}</p>
                     <p>{`${price.toLocaleString()}원`}</p>
 
-                    <button type="button" className="btn btn-danger">주문하기</button>
+                    <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => dispatch(addCart({ id, title }))}
+                    >
+                        주문하기
+
+                    </button>
                 </div>
                 <Nav fill variant="tabs" defaultActiveKey={tabIndex}>
                     {
@@ -56,7 +65,9 @@ export default function Detail() {
                     }
                 </Nav>
             </div>
-            <div className="start">{tabs[tabIndex].content}</div>
+            <div className="content">
+                {tabs[tabIndex].content}
+            </div>
         </div>
     );
 }

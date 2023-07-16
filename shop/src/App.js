@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import Detail from './components/Detail';
+import Cart from './components/Cart';
 import './App.css';
 import data from './assets/data';
 
@@ -29,7 +30,7 @@ function App() {
                             Best
 
                         </Nav.Link>
-                        <Nav.Link href="#candle">Candle</Nav.Link>
+                        <Link to="/cart" className="nav-link">Cart</Link>
                         <Nav.Link href="#freshener">Freshener</Nav.Link>
                     </Nav>
                 </Container>
@@ -38,7 +39,11 @@ function App() {
                 <Route path="/" element={<Main />} />
                 <Route
                     path="/detail/:id"
-                    element={<Detail />}
+                    element={<Detail products={data} />}
+                />
+                <Route
+                    path="/cart"
+                    element={<Cart />}
                 />
                 <Route path="/about" element={<About />}>
                     <Route path="member" element={<div>멤버</div>} />

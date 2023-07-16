@@ -47,5 +47,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'linebreak-style': 'off',
         'import/prefer-default-export': 'off',
+        'import/no-cycle': 'off',
+        'no-param-reassign': 'off',
     },
 };
