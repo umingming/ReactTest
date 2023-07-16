@@ -1,73 +1,60 @@
-import { Suspense, lazy, useState } from 'react';
+import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import {
-    Routes, Route, Link, useNavigate, Outlet,
-} from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import './App.css';
-import data from './assets/data';
-
-const Cart = lazy(() => import('./components/Cart'));
-const Detail = lazy(() => import('./components/Detail'));
+import Detail from 'components/Detail';
+import Cart from 'components/Cart';
+import 'App.css';
+import data from 'assets/data';
 
 function App() {
-    const brand = "이천's캔들";
+    const brand = '이천스캔들';
     const navigate = useNavigate();
-    const { data: user, isLoading } = useQuery('user', () => axios.get('https://codingapple1.github.io/userdata.json').then((res) => res.data));
+    const { data: user, isLoading } = useQuery('user', () =>
+        axios.get('https://codingapple1.github.io/userdata.json').then(res => res.data)
+    );
 
     return (
         <div className="App">
             <Navbar bg="light" data-bs-theme="light">
                 <Container>
                     <Navbar.Brand
-                        onClick={() => { navigate('/'); }}
+                        onClick={() => {
+                            navigate('/');
+                        }}
                     >
-                        { brand }
-
+                        {brand}
                     </Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link
-                            onClick={() => { navigate('/'); }}
+                            onClick={() => {
+                                navigate('/');
+                            }}
                         >
                             Best
-
                         </Nav.Link>
-                        <Link to="/cart" className="nav-link">Cart</Link>
+                        <Link to="/cart" className="nav-link">
+                            Cart
+                        </Link>
                         <Nav.Link href="#freshener">Freshener</Nav.Link>
                     </Nav>
-                    <Nav className="ms-auto">
-                        {
-                            isLoading ? '로딩 중' : user?.name
-                        }
-                    </Nav>
+                    <Nav className="ms-auto">{isLoading ? '로딩 중' : user?.name}</Nav>
                 </Container>
             </Navbar>
-            <Suspense fallback={<div>로딩 중</div>}>
-
-                <Routes>
-                    <Route path="/" element={<Main />} />
-                    <Route
-                        path="/detail/:id"
-                        element={<Detail products={data} />}
-                    />
-                    <Route
-                        path="/cart"
-                        element={<Cart />}
-                    />
-                    <Route path="/about" element={<About />}>
-                        <Route path="member" element={<div>멤버</div>} />
-                    </Route>
-                    <Route path="/event" element={<Event />}>
-                        <Route path="one" element={<p>첫 주문시 양배추즙</p>} />
-                        <Route path="two" element={<p>생일 기념 쿠폰</p>} />
-                    </Route>
-                    <Route
-                        path="*"
-                        element={<div>없어요</div>}
-                    />
-                </Routes>
-            </Suspense>
+            <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/detail/:id" element={<Detail products={data} />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/about" element={<About />}>
+                    <Route path="member" element={<div>멤버</div>} />
+                </Route>
+                <Route path="/event" element={<Event />}>
+                    <Route path="one" element={<p>첫 주문시 양배추즙</p>} />
+                    <Route path="two" element={<p>생일 기념 쿠폰</p>} />
+                </Route>
+                <Route path="*" element={<div>없어요</div>} />
+            </Routes>
         </div>
     );
 }
@@ -96,32 +83,22 @@ function Main() {
         if (products.length !== data.length) {
             setProducts([...data]);
         } else {
-            axios.get('https://codingapple1.github.io/shop/data2.json')
+            axios
+                .get('https://codingapple1.github.io/shop/data2.json')
                 .then(({ data: more }) => setProducts([...products, ...more]))
-                .catch((error) => console.log(error));
+                .catch(error => console.log(error));
         }
     }
 
     return (
         <div className="container">
             <div className="row">
-                {
-                    products.map((i) => (
-                        <Product
-                            key={i.id}
-                            product={i}
-                        />
-                    ))
-                }
+                {products.map(i => (
+                    <Product key={i.id} product={i} />
+                ))}
             </div>
-            <button
-                type="button"
-                onClick={updateProducts}
-            >
-                {
-                    products.length === data.length
-                        ? '더보기' : '접기'
-                }
+            <button type="button" onClick={updateProducts}>
+                {products.length === data.length ? '더보기' : '접기'}
             </button>
         </div>
     );
@@ -131,11 +108,7 @@ function Product({ product: { id, title, content } }) {
     return (
         <div className="col-md-4">
             <Link to={`/detail/${id}`}>
-                <img
-                    src={`https://codingapple1.github.io/shop/shoes${id + 1}.jpg`}
-                    alt={title}
-                    width="80%"
-                />
+                <img src={`https://codingapple1.github.io/shop/shoes${id + 1}.jpg`} alt={title} width="80%" />
                 <h4>{title}</h4>
                 <p>{content}</p>
             </Link>

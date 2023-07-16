@@ -8,19 +8,19 @@ const carts = createSlice({
     ],
     reducers: {
         increaseCount(state, { payload }) {
-            const cart = state.find((i) => i.id === payload);
+            const cart = state.find(i => i.id === payload);
             cart.count += 1;
         },
         decreaseCount(state, { payload }) {
-            const cart = state.find((i) => i.id === payload);
+            const cart = state.find(i => i.id === payload);
             cart.count -= cart.count > 0 ? 1 : 0;
         },
         removeCart(state, { payload }) {
-            const filterCarts = state.filter((i) => i.id !== payload);
+            const filterCarts = state.filter(i => i.id !== payload);
             return filterCarts;
         },
         addCart(state, { payload: { id, title } }) {
-            const oldCart = state.find((i) => i.id === id);
+            const oldCart = state.find(i => i.id === id);
             if (oldCart) {
                 oldCart.count += 1;
             } else {
@@ -31,7 +31,5 @@ const carts = createSlice({
     },
 });
 
-export const {
-    increaseCount, decreaseCount, removeCart, addCart,
-} = carts.actions;
+export const { increaseCount, decreaseCount, removeCart, addCart } = carts.actions;
 export default carts;
