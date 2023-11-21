@@ -1,7 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import styled from "@emotion/styled";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const Button = styled("button")`
     color: gray;
@@ -10,17 +12,25 @@ const Button = styled("button")`
 function App() {
     return (
         <div className="App">
-            <header className="App-header">
-                <Button></Button>
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Test
-                </a>
-            </header>
+            <ButtonContainer />
         </div>
+    );
+}
+
+function ButtonContainer() {
+    return (
+        <Container fluid>
+            <Row>
+                <Col>%</Col>
+                <Col>CE</Col>
+                <Col>C</Col>
+                <Col></Col>
+            </Row>
+            <Row>
+                <Col>1</Col>
+                <Col>2</Col>
+            </Row>
+        </Container>
     );
 }
 
