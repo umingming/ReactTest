@@ -21,20 +21,43 @@ const Button = styled("button")`
 
 function App() {
     const [value, setValue] = useState("");
+    const [index, setIndex] = useState(0);
 
-    function changeValue({ target: { value } }: { target: { value: string } }): void {
+    function changeIndex(e: React.MouseEvent<HTMLInputElement>): void {
+        const $input = e.target as HTMLInputElement;
+        setIndex($input.selectionEnd ?? 0);
+    }
+
+    function resetIndex(e: React.FocusEvent<HTMLInputElement>): void {
+        if (!e.relatedTarget) {
+            setIndex(value.length);
+        }
+    }
+
+    function changeNumber({ target: { value } }: { target: { value: string } }): void {
         if (/^[0-9]+$/.test(value)) {
             setValue(value);
         }
     }
 
-    function addValue(num: number): void {
-        setValue(value + num);
+    function addNumber(number: string): void {
+        const $input = document.querySelector("input");
+        const numbers = value.split("");
+
+        numbers.splice(index, 0, number);
+        setValue(numbers.join(""));
+        setIndex(index + 1);
+
+        $input?.focus();
+        //커서 위치 잡기
+        setTimeout(() => {
+            $input?.setSelectionRange(index + 1, index + 1);
+        }, 2);
     }
 
     return (
         <div className="App">
-            <Input value={value} onChange={changeValue} />
+            <Input value={value} onChange={changeNumber} onClick={changeIndex} onBlur={resetIndex} />
             <Container fluid>
                 <Row>
                     <Col>
@@ -52,50 +75,32 @@ function App() {
                 </Row>
                 <Row>
                     <Col>
-                        <Button onClick={() => addValue(7)}>7</Button>
+                        <ButtonNumber value="7" onClick={addNumber} />
                     </Col>
-                    <Col>
-                        <Button onClick={() => addValue(8)}>8</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => addValue(9)}>9</Button>
-                    </Col>
+                    <Col></Col>
+                    <Col></Col>
                     <Col>
                         <Button>x</Button>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <Button onClick={() => addValue(4)}>4</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => addValue(5)}>5</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => addValue(6)}>6</Button>
-                    </Col>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col></Col>
                     <Col>
                         <Button>-</Button>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <Button onClick={() => addValue(1)}>1</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => addValue(2)}>2</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => addValue(3)}>3</Button>
-                    </Col>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col></Col>
                     <Col>
                         <Button>+</Button>
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={6}>
-                        <Button onClick={() => addValue(0)}>0</Button>
-                    </Col>
+                    <Col xs={6}></Col>
                     <Col>
                         <Button>.</Button>
                     </Col>
@@ -106,6 +111,14 @@ function App() {
             </Container>
         </div>
     );
+}
+
+type ButtonProps = {
+    value: string;
+    onClick: (value: string) => void;
+};
+function ButtonNumber({ value, onClick }: ButtonProps) {
+    return <Button onClick={() => onClick(value)}>{value}</Button>;
 }
 
 export default App;
