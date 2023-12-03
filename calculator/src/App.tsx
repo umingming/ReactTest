@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import styled from "@emotion/styled";
 import Container from "react-bootstrap/Container";
@@ -22,10 +22,11 @@ const Button = styled("button")`
 function App() {
     const [value, setValue] = useState("0");
     const [index, setIndex] = useState(0);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    function changeIndex(e: React.MouseEvent<HTMLInputElement>): void {
-        const $input = e.target as HTMLInputElement;
-        setIndex($input.selectionEnd ?? 0);
+    function changeIndex(): void {
+        //react는 ref에서 current 사용
+        setIndex(inputRef.current?.selectionEnd ?? 0);
     }
 
     function resetIndex(e: React.FocusEvent<HTMLInputElement>): void {
@@ -41,8 +42,12 @@ function App() {
     }
 
     function addZero(): void {
+        //처음 위치에선 0 추가 안 되도록
         if (index > 0) {
             addNumber("0");
+        } else {
+            //포커싱 효과
+            inputRef.current?.focus();
         }
     }
 
@@ -55,19 +60,18 @@ function App() {
             setValue(numbers.join(""));
         }
 
-        const $input = document.querySelector("input");
-        $input?.focus();
+        inputRef.current?.focus();
 
         //커서 위치 잡기
         setIndex(index + 1);
         setTimeout(() => {
-            $input?.setSelectionRange(index + 1, index + 1);
+            inputRef.current?.setSelectionRange(index + 1, index + 1);
         }, 2);
     }
 
     return (
         <div className="App">
-            <Input value={value} onChange={changeNumber} onClick={changeIndex} onBlur={resetIndex} />
+            <Input ref={inputRef} value={value} onChange={changeNumber} onClick={changeIndex} onBlur={resetIndex} />
             <Container fluid>
                 <Row>
                     <Col>
