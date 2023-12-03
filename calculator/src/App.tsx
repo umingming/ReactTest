@@ -20,7 +20,7 @@ const Button = styled("button")`
 `;
 
 function App() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("0");
     const [index, setIndex] = useState(0);
 
     function changeIndex(e: React.MouseEvent<HTMLInputElement>): void {
@@ -40,16 +40,26 @@ function App() {
         }
     }
 
+    function addZero(): void {
+        if (index > 0) {
+            addNumber("0");
+        }
+    }
+
     function addNumber(number: string): void {
+        if (value === "0") {
+            setValue(number);
+        } else {
+            const numbers = value.split("");
+            numbers.splice(index, 0, number);
+            setValue(numbers.join(""));
+        }
+
         const $input = document.querySelector("input");
-        const numbers = value.split("");
-
-        numbers.splice(index, 0, number);
-        setValue(numbers.join(""));
-        setIndex(index + 1);
-
         $input?.focus();
+
         //커서 위치 잡기
+        setIndex(index + 1);
         setTimeout(() => {
             $input?.setSelectionRange(index + 1, index + 1);
         }, 2);
@@ -77,30 +87,48 @@ function App() {
                     <Col>
                         <ButtonNumber value="7" onClick={addNumber} />
                     </Col>
-                    <Col></Col>
-                    <Col></Col>
+                    <Col>
+                        <ButtonNumber value="8" onClick={addNumber} />
+                    </Col>
+                    <Col>
+                        <ButtonNumber value="9" onClick={addNumber} />
+                    </Col>
                     <Col>
                         <Button>x</Button>
                     </Col>
                 </Row>
                 <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col></Col>
+                    <Col>
+                        <ButtonNumber value="4" onClick={addNumber} />
+                    </Col>
+                    <Col>
+                        <ButtonNumber value="5" onClick={addNumber} />
+                    </Col>
+                    <Col>
+                        <ButtonNumber value="6" onClick={addNumber} />
+                    </Col>
                     <Col>
                         <Button>-</Button>
                     </Col>
                 </Row>
                 <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col></Col>
+                    <Col>
+                        <ButtonNumber value="1" onClick={addNumber} />
+                    </Col>
+                    <Col>
+                        <ButtonNumber value="2" onClick={addNumber} />
+                    </Col>
+                    <Col>
+                        <ButtonNumber value="3" onClick={addNumber} />
+                    </Col>
                     <Col>
                         <Button>+</Button>
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={6}></Col>
+                    <Col xs={6}>
+                        <ButtonNumber value="0" onClick={addZero} />
+                    </Col>
                     <Col>
                         <Button>.</Button>
                     </Col>
