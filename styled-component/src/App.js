@@ -10,6 +10,7 @@ const animation = keyframes`
 `
 const Container = styled.div`
   display: flex;
+  background-color: ${(props) => props.theme.backgroundColor1}
 `;
 const Text = styled.span`
   color: white;
