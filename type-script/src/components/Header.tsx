@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
+    const navigate = useNavigate();
+    const goAbout = () => navigate("/about");
+
     return (
         <h1>
             <Link to={"/home"}>Home</Link>
-            <Link to={"/about"}>About</Link>
+            <button onClick={goAbout}>About</button>
         </h1>
     )
 }
