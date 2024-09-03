@@ -3,6 +3,7 @@ import App from "./App";
 import Header from "./components/Header";
 import About from "./screens/About";
 import Home from "./screens/Home";
+import NotFound from "./screens/NotFound";
 
 // export default function Router() {
 //     return (
@@ -22,10 +23,17 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             {
+                path: "home",
+                element: <Home />,
+                errorElement: <NotFound />
+            },
+            {
                 path: "about",
-                element: <About />
+                element: <About />,
+                errorElement: <NotFound />
             }
-        ]
+        ],
+        errorElement: <NotFound />
     }
 ])
 export default router;
