@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Form() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState<string|number>("");
     
     function changeValue(event: React.FormEvent<HTMLInputElement>) {
         const {
@@ -10,7 +10,7 @@ export default function Form() {
         setValue(value);
     }
     function submitValue(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
+        event.preventDefault
         console.log(event);
     }
 
