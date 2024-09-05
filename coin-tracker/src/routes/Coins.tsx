@@ -1,4 +1,3 @@
-import { response } from "express";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components"
@@ -52,13 +51,13 @@ const Img = styled.img`
 `
 
 interface ICoin {
-    id: string,
-    name: string,
-    symbol: string,
-    rank: number,
-    is_new: boolean,
-    is_active: boolean,
-    type: string,
+    id: string;
+    name: string;
+    symbol: string;
+    rank: number;
+    is_new: boolean;
+    is_active: boolean;
+    type: string;
 }
 
 export default function Coins() {
