@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components"
+import { fetchCoins } from "../api";
 
 const Container = styled.div`
     padding: 10px;
@@ -61,26 +63,29 @@ interface ICoin {
 }
 
 export default function Coins() {
-    const [coins, setCoins] = useState<ICoin[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch("https://api.coinpaprika.com/v1/coins")
-            .then(response => response.json())
-            .then(data => {
-                setLoading(false);
-                setCoins(data.slice(0, 100));
-            });
-    }, [])
+    // const [coins, setCoins] = useState<ICoin[]>([]);
+    // const [loading, setLoading] = useState(true);
+    
+    // useEffect(() => {
+    //     fetch("https://api.coinpaprika.com/v1/coins")
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         setLoading(false);
+    //         setCoins(data.slice(0, 100));
+    //     });
+    // }, [])
+    
+    // 캐시에 데이터를 저장해둠.
+    const { isLoading, data } = useQuery<ICoin[]>(["coins"], fetchCoins);
 
     return (
         <Container>
             <Header>
                 <Title>Coins</Title>
             </Header>
-            {loading && <Loader>Loading...</Loader>}
+            {isLoading && <Loader>Loading...</Loader>}
             <CoinList>
-                {coins.map(coin => (
+                {data?.map(coin => (
                     <Coin key={coin.id}>
                         <Link to={coin.id} state={coin} >
                             <Img
