@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import { styled } from "styled-components"
 
 const Container = styled.div`
@@ -7,28 +7,41 @@ const Container = styled.div`
     max-width: 480px;
     margin: 0 auto;
 `;
-
 const Header = styled.header`
     height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
 `;
-
 const Title = styled.h1`
     font-size: 48px;
     color: ${props => props.theme.accentColor};
 `;
-
 const Loader = styled.div`
     text-align: center;
 `;
 
-const Img = styled.img`
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-`
+const Overview = styled.div`
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+`;
+const OverviewItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span:first-child {
+        font-size: 10px;
+        font-weight: 400;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+`;
+const Description = styled.p`
+    margin: 20px 0px;
+`;
 
 interface ICoin {
     id: string;
@@ -97,6 +110,7 @@ interface IPriceInfo {
 
 export default function Coin() {
     const { coinId } = useParams();
+    const { state } = useLocation();
     const [loading, setLoading] = useState(true);
 
     const [coinInfo, setCoinInfo] = useState<ICoinInfo>();
@@ -118,14 +132,42 @@ export default function Coin() {
         })();
     }, [])
 
+    if (loading) {
+        return <Loader>Loading...</Loader>;
+    }
+
     return (
         <Container>
             <Header>
                 {/* 직접 url 입력해서 진입하면 state를 읽을 수 없음. */}
-                <Title>{coinId}</Title>
+                <Title>{state?.name ? state.name : coinInfo?.name}</Title>
             </Header>
-            {loading && <Loader>Loading...</Loader>}
-            {coinInfo?.id}
+            <Overview>
+                <OverviewItem>
+                    <span>Rank:</span>
+                    <span>{coinInfo?.rank}</span>
+                </OverviewItem>
+                <OverviewItem>
+                    <span>Symbol:</span>
+                    <span>${coinInfo?.symbol}</span>
+                </OverviewItem>
+                <OverviewItem>
+                    <span>Open Source:</span>
+                    <span>{coinInfo?.open_source ? "Yes" : "No"}</span>
+                </OverviewItem>
+            </Overview>
+            <Description>{coinInfo?.description}</Description>
+            <Overview>
+                <OverviewItem>
+                    <span>Total Suply:</span>
+                    <span>{priceInfo?.total_supply}</span>
+                </OverviewItem>
+                <OverviewItem>
+                    <span>Max Supply:</span>
+                    <span>{priceInfo?.max_supply}</span>
+                </OverviewItem>
+            </Overview>
+            <Outlet />
         </Container>
     )
 }
