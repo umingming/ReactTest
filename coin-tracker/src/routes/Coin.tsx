@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { Link, Outlet, useLocation, useMatch, useParams } from "react-router-dom";
 import { styled } from "styled-components"
 import { fetchCoinInfo, fetchCoinTicker } from "../api";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
     padding: 10px;
@@ -171,6 +172,13 @@ export default function Coin() {
 
     return (
         <Container>
+            {/* 헤드 속성 바꿔줌 */}
+            <Helmet>
+                <title>
+                    코인
+                </title>
+            </Helmet>
+
             <Header>
                 {/* 직접 url 입력해서 진입하면 state를 읽을 수 없음. */}
                 <Title>{state?.name ? state.name : infoData?.name}</Title>
@@ -186,8 +194,8 @@ export default function Coin() {
                     <span>${infoData?.symbol}</span>
                 </OverviewItem>
                 <OverviewItem>
-                    <span>Open Source:</span>
-                    <span>{infoData?.open_source ? "Yes" : "No"}</span>
+                    <span>Price:</span>
+                    <span>${tickerData?.quotes.USD.price.toFixed(2)}</span>
                 </OverviewItem>
             </Overview>
 
