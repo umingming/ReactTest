@@ -76,7 +76,11 @@ export default function Coins() {
     // }, [])
     
     // 캐시에 데이터를 저장해둠.
-    const { isLoading, data } = useQuery<ICoin[]>(["coins"], fetchCoins);
+    const { isFetching, isError, isSuccess, isLoading, data } = useQuery<ICoin[]>({
+        queryKey: ["coins"], 
+        queryFn: fetchCoins,
+    });
+    console.log(isFetching, isError, isSuccess, isLoading)
 
     return (
         <Container>

@@ -158,7 +158,10 @@ export default function Coin() {
     // }, [])
 
     const { isLoading: infoLoading, data: infoData } 
-        = useQuery<ICoinInfo>(["coinInfo", coinId], () => fetchCoinInfo(coinId));
+        = useQuery<ICoinInfo>({
+            queryKey: ["coinInfo", coinId], 
+            queryFn: () => fetchCoinInfo(coinId)
+        });
     const { isLoading: tickerLoading, data: tickerData } 
         = useQuery<IPriceInfo>(["coinTicker", coinId], () => fetchCoinTicker(coinId));
 
