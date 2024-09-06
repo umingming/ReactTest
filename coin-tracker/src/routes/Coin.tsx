@@ -11,6 +11,7 @@ const Container = styled.div`
     margin: 0 auto;
 `;
 const Header = styled.header`
+    position: relative;
     height: 15vh;
     display: flex;
     justify-content: center;
@@ -19,6 +20,15 @@ const Header = styled.header`
 const Title = styled.h1`
     font-size: 48px;
     color: ${props => props.theme.accentColor};
+    a {
+        position: absolute;
+        left: 0;
+        cursor: pointer;
+        color: white;
+        &:hover{
+            color: ${props => props.theme.accentColor};
+        }
+    }
 `;
 const Loader = styled.div`
     text-align: center;
@@ -181,7 +191,12 @@ export default function Coin() {
 
             <Header>
                 {/* 직접 url 입력해서 진입하면 state를 읽을 수 없음. */}
-                <Title>{state?.name ? state.name : infoData?.name}</Title>
+                <Title>
+                    <Link to="/">
+                        &larr;
+                    </Link>
+                    {state?.name ? state.name : infoData?.name}
+                </Title>
             </Header>
 
             <Overview>
