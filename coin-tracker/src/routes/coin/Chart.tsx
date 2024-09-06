@@ -49,7 +49,10 @@ export default function Chart() {
                         background: "transparent",
                         toolbar: {
                             show: false
-                        }
+                        },
+                        animations: {
+                            easing: 'easeinout',
+                        },
                     },
                     grid: {
                         show: false,
@@ -79,7 +82,7 @@ export default function Chart() {
                         gradient: {
                             gradientToColors: ["#ffffff9d"],
                             stops: [0, 40]
-                        }
+                        },
                     },
                     tooltip: {
                         y: {

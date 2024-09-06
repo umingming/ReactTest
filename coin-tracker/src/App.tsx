@@ -66,12 +66,18 @@ a {
 }
 `;
 
+
+/*
+  1. Coins 뒤로가기 버튼
+  2. Price tab 꾸미기
+  3. Chart를 Candlestacks 차트로 변경
+*/
+
 function App() {
   return (
     <>
       <GlobalStyle />
       <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={true} />
     </>
   );
 }
