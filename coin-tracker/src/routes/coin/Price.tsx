@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import { fetchCoinHistory } from "../../api";
 import ApexChart from "react-apexcharts"
 import { styled } from "styled-components";
+import '@toast-ui/editor/dist/toastui-editor.css';
 
+import { Editor } from '@toast-ui/react-editor';
 const Loader = styled.div`
     text-align: center;
 `;
@@ -25,12 +27,21 @@ export default function Price() {
         queryFn: () => fetchCoinHistory(coinId),
     });
 
+    // 
     if (isLoading) {
         return <Loader>Loading...</Loader>;
     }
 
     return (
         <div>
+            {/* #region 초기화 */}
+            <Editor
+                initialValue="hello react editor world!"
+                previewStyle="vertical"
+                height="600px"
+                initialEditType="markdown"
+                useCommandShortcut={true}
+            />
             <ApexChart 
                 type="candlestick" 
                 series={[
@@ -86,6 +97,7 @@ export default function Price() {
                     }
                 }}
             />
+            {/* #endregion */}
         </div>
     )
 }
