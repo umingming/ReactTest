@@ -34,14 +34,6 @@ export default function Price() {
 
     return (
         <div>
-            {/* #region 초기화 */}
-            <Editor
-                initialValue="hello react editor world!"
-                previewStyle="vertical"
-                height="600px"
-                initialEditType="markdown"
-                useCommandShortcut={true}
-            />
             <ApexChart 
                 type="candlestick" 
                 series={[
@@ -97,7 +89,6 @@ export default function Price() {
                     }
                 }}
             />
-            {/* #endregion */}
         </div>
     )
 }
