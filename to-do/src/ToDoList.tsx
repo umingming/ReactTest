@@ -24,13 +24,25 @@ import { useForm } from "react-hook-form";
 //     );
 // }
 
+interface IFormData {
+    errors: {
+        email: {
+            message: string,
+        }
+    },
+    email: string,
+    toDo1: string,
+    toDo2: string,
+}
+
+
 export function ToDoList() {
     /*
         watch를 사용해 값을 추적할 수 있다.
     */
-    const { register, watch, handleSubmit, formState } = useForm();
+    const { register, watch, handleSubmit, formState: { errors } } = useForm<IFormData>();
     // console.log(watch())
-    console.log("errors:", formState.errors)
+    console.log("errors:", errors)
 
     const onValid = (data: any) => {
         console.log("valid:", data);
@@ -61,6 +73,23 @@ export function ToDoList() {
                     })} 
                     placeholder="Write a to do"
                 />
+                {/* 정규식을 사용해 패턴 밸리데이션할 수 있다. 마찬가지로 문자열도 되고 객체형식으로 정의 가능 */}
+                <input 
+                    {...register("email", { 
+                        required: true,
+                        pattern: {
+                            value: /^[\w]+@naver.com$/,
+                            message: "이메일 형식 입력해라."
+                        }
+                    })} 
+                    placeholder="Write a to do"
+                />
+                {/* 객체 참조 에러날 때는 항상 타입정의했는지 확인하기 */}
+                <span>
+                    {
+                        errors?.email?.message
+                    }
+                </span>
                 <button>Add</button>
             </form>
         </div>
