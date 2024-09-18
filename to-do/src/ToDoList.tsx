@@ -61,7 +61,7 @@ export function ToDoList() {
                         required: true, 
                         minLength: {
                             value: 5,
-                            message: "test"
+                            message: "More than 5"
                         }
                     })} 
                     placeholder="Write a to do" 
