@@ -44,7 +44,7 @@ export function ToDoList() {
     // console.log(watch())
     console.log("errors:", errors)
 
-    const onValid = (data: any) => {
+    const onValid = (data: IFormData) => {
         console.log("valid:", data);
     }
 
