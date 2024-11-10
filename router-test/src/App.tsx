@@ -5,8 +5,8 @@ import Login from "./pages/Login";
 import Main from "./pages/Main";
 
 const router = createBrowserRouter([
-  { path: "/ReactTest/router-test/", element: <Main /> },
-  { path: "/ReactTest/router-test/login", element: <Login /> },
+  { path: "/ReactTest/", element: <Main /> },
+  { path: "/ReactTest/login", element: <Login /> },
 ]);
 
 function App() {
