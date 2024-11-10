@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Main from "./pages/Main";
 
 const router = createHashRouter([
-  { path: "/", element: <Main /> },
+  { path: "/main", element: <Main /> },
   { path: "/login", element: <Login /> },
 ]);
 
