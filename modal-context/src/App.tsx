@@ -1,9 +1,6 @@
-import { createContext, useState } from "react";
-
-const ThemeContext = createContext({
-  theme: "light",
-  toggleTheme: () => {},
-});
+import { useState } from "react";
+import ThemeContext from "./ThemeContext";
+import ThemedButton from "./ThemedButton";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -24,16 +21,6 @@ function Toolbar() {
     <div>
       <ThemedButton />
     </div>
-  );
-}
-
-function ThemedButton() {
-  return (
-    <ThemeContext.Consumer>
-      {({ theme, toggleTheme }) => (
-        <button onClick={toggleTheme}>{theme}</button>
-      )}
-    </ThemeContext.Consumer>
   );
 }
 
