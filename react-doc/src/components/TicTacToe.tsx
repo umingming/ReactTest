@@ -17,73 +17,38 @@ function Square({ value, onClick }: SquareProps) {
     );
 }
 
-function Board() {
-    const [xIsNext, setXIsNext] = useState(true);
-    const [squares, setSquares] = useState(Array(9).fill(null));
+interface BoardProps {
+    turn: string;
+    squares: SquareValue[];
+    onPlay: (squares: SquareValue[]) => void;
+}
 
-    const nextTurn = xIsNext ? "X" : "O";
-
+function Board({ turn, squares, onPlay }: BoardProps) {
     function updateSquares(index: number) {
         if (squares[index] || calculateWinner(squares)) return;
 
         const nextSquares = squares.slice();
-        nextSquares[index] = nextTurn;
-        setSquares(nextSquares);
-        setXIsNext(!xIsNext);
+        nextSquares[index] = turn;
+        onPlay(nextSquares);
     }
 
     // useMemo는 불필요한 재계산 방지이므로 간단한 경우에는 사용하지 않음!
     const winner = calculateWinner(squares);
-    const status = winner ? `Winner: ${winner}` : `Next player: ${nextTurn}`;
+    const status = winner ? `Winner: ${winner}` : `Next player: ${turn}`;
 
     return (
-        <>
+        <div className="relative w-32">
             <div>{status}</div>
-            <div className="flex flex-col gap-1">
-                <div className="flex gap-1">
+            <div className="grid grid-cols-3 gap-1">
+                {squares.map((square, index) => (
                     <Square
-                        value={squares[0]}
-                        onClick={() => updateSquares(0)}
+                        key={index}
+                        value={square}
+                        onClick={() => updateSquares(index)}
                     />
-                    <Square
-                        value={squares[2]}
-                        onClick={() => updateSquares(2)}
-                    />
-                    <Square
-                        value={squares[1]}
-                        onClick={() => updateSquares(1)}
-                    />
-                </div>
-                <div className="flex gap-1">
-                    <Square
-                        value={squares[3]}
-                        onClick={() => updateSquares(3)}
-                    />
-                    <Square
-                        value={squares[4]}
-                        onClick={() => updateSquares(4)}
-                    />
-                    <Square
-                        value={squares[5]}
-                        onClick={() => updateSquares(5)}
-                    />
-                </div>
-                <div className="flex gap-1">
-                    <Square
-                        value={squares[6]}
-                        onClick={() => updateSquares(6)}
-                    />
-                    <Square
-                        value={squares[7]}
-                        onClick={() => updateSquares(7)}
-                    />
-                    <Square
-                        value={squares[8]}
-                        onClick={() => updateSquares(8)}
-                    />
-                </div>
+                ))}
             </div>
-        </>
+        </div>
     );
 }
 
@@ -110,9 +75,47 @@ function calculateWinner(squares: SquareValue[]) {
 }
 
 export default function Game() {
+    const [history, setHistory] = useState([Array(9).fill(null)]);
+    const [currentMove, setCurrentMove] = useState(0);
+
+    const currentSquares = history[currentMove] as SquareValue[];
+    // 중복되는 state는 피할 것
+    const nextTurn = currentMove % 2 ? "O" : "X";
+
+    function handlePlay(nextSquares: SquareValue[]) {
+        const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+        setHistory(nextHistory);
+        setCurrentMove(nextHistory.length - 1);
+    }
+
+    function jumpTo(nextMove: number) {
+        setCurrentMove(nextMove);
+    }
+
+    const moves = history.map((_, index) => {
+        const description = index ? `Go to move #${index}` : "Go to game start";
+        return (
+            <li key={index}>
+                <button
+                    className="rounded-md border px-2"
+                    onClick={() => jumpTo(index)}
+                >
+                    {description}
+                </button>
+            </li>
+        );
+    });
+
     return (
-        <div>
-            <Board />
+        <div className="flex gap-5">
+            <Board
+                turn={nextTurn}
+                squares={currentSquares}
+                onPlay={handlePlay}
+            />
+            <div className="mt-3">
+                <ol className="list-decimal">{moves}</ol>
+            </div>
         </div>
     );
 }
