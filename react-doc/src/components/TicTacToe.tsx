@@ -114,7 +114,7 @@ export default function Game() {
                 onPlay={handlePlay}
             />
             <div className="mt-3">
-                <ol className="list-decimal">{moves}</ol>
+                <ol className="flex list-decimal flex-col">{moves}</ol>
             </div>
         </div>
     );
