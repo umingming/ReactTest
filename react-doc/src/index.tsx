@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Board from "./components/TicTacToe";
+import Immer from "./components/state/Immer";
 
 // const root = ReactDOM.createRoot(
 //   document.getElementById('root') as HTMLElement
@@ -15,10 +16,10 @@ import Board from "./components/TicTacToe";
 // );
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement,
 );
 
-root.render(<Board />);
+root.render(<Immer />);
 
 // function tick() {
 //   const element = (
