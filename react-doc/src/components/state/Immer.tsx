@@ -10,7 +10,7 @@ interface Artwork {
 type ArtworkKey = keyof Artwork;
 
 export default function Immer() {
-    const [artwork, updateArtwork] = useImmer({
+    const [artwork, updateArtwork] = useImmer<Artwork>({
         name: "Niki de Saint Phalle",
         title: "Blue Nana",
         city: "Hamburg",
