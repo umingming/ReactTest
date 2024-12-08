@@ -7,6 +7,8 @@ import Board from "./components/TicTacToe";
 import Immer from "./components/state/Immer";
 import Queue from "./components/state/Queue";
 import State from "./components/state/ProcessQueue";
+import Counter from "./components/ref/Counter";
+import Chat from "./components/ref/Chat";
 
 // const root = ReactDOM.createRoot(
 //   document.getElementById('root') as HTMLElement
@@ -21,7 +23,7 @@ const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
 );
 
-root.render(<State />);
+root.render(<Chat />);
 
 // function tick() {
 //   const element = (
