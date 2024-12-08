@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Board from "./components/TicTacToe";
 import Immer from "./components/state/Immer";
+import Queue from "./components/state/Queue";
+import State from "./components/state/ProcessQueue";
 
 // const root = ReactDOM.createRoot(
 //   document.getElementById('root') as HTMLElement
@@ -19,7 +21,7 @@ const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
 );
 
-root.render(<Immer />);
+root.render(<State />);
 
 // function tick() {
 //   const element = (
