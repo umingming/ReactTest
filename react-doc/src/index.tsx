@@ -9,6 +9,7 @@ import Queue from "./components/state/Queue";
 import State from "./components/state/ProcessQueue";
 import Counter from "./components/ref/Counter";
 import Chat from "./components/ref/Chat";
+import Debounce from "./components/ref/Debounce";
 
 // const root = ReactDOM.createRoot(
 //   document.getElementById('root') as HTMLElement
@@ -23,7 +24,7 @@ const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
 );
 
-root.render(<Chat />);
+root.render(<Debounce />);
 
 // function tick() {
 //   const element = (
