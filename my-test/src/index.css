@@ -7,20 +7,20 @@ html {
 }
 @media (max-width: 799px) {
     html {
-        font-size: max(16px, 2.39vh);
+        font-size: 2.39vh;
     }
 }
 
 /* 태블릿 세로 모드 */
 @media (min-width: 601px) and (max-width: 1334px) and (orientation: portrait) {
     html {
-        font-size: max(16px, 1.5625vh);
+        font-size: 1.5625vh;
     }
 }
 
 /* PC 및 태블릿 가로 모드 */
 @media (min-width: 800px) and (orientation: landscape), (min-width: 1335px) {
     html {
-        font-size: max(16px, 2.083vh);
+        font-size: 2.083vh;
     }
 }
