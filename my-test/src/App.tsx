@@ -11,7 +11,7 @@ function App() {
     } = window;
     return (
         <div className="App flex h-screen flex-col items-center justify-center">
-            <div className="pc:bg-purple-600 tablet:bg-teal-400 mobile:bg-orange-500 h-200 w-200 bg-slate-300 text-5xl">
+            <div className="h-200 w-200 bg-slate-300 text-5xl mobile:bg-orange-500 tablet:bg-teal-400 pc:bg-purple-600">
                 Height: {innerHeight} {outerHeight}
                 <br />
                 Ratio: {devicePixelRatio}
