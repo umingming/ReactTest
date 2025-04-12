@@ -1,9 +1,13 @@
-import DragBox from "./beautiful-dnd/DragBox";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { List } from "./dnd/ListBox";
 
 function App() {
   return (
     <div className="App">
-      <DragBox />
+      <DndProvider backend={HTML5Backend}>
+        <List />
+      </DndProvider>
     </div>
   );
 }
