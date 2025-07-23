@@ -1,9 +1,9 @@
-import { Test } from "@/components/Test";
+import { ImageCanvas } from "@/components/ImageCanvas";
 
 function App() {
   return (
     <div>
-      <Test />
+      <ImageCanvas />
     </div>
   );
 }
