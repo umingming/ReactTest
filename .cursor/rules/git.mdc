@@ -1,5 +1,5 @@
 ---
-description:
+description: 깃 커밋 메시지 자동 생성 및 푸시/PR 처리
 globs:
 alwaysApply: false
 ---
@@ -13,7 +13,8 @@ alwaysApply: false
 - 사용자에게 커밋할지 묻고, yes일 경우 커밋과 푸시를 실행한다.
 - 푸시 완료 후 사용자에게 PR을 생성할지 묻고, yes일 경우 PR 명령어를 실행한다.
 - GitHub CLI 인증이 안 되어 있으면 브라우저로 PR 생성 페이지를 연다.
-</system>
+  </system>
+
 <rule>
 - Message 앞에 Prefix를 추가하며, Message의 의도를 Prefix를 통해 알 수 있어야 한다. 
     - [FIX] 올바르지 않은 동작을 고친 경우 사용
@@ -27,25 +28,34 @@ alwaysApply: false
     ex) [FIX] 일부 개인정보가 파기되지 않는 이슈, [REMOVE] 개인정보 파기 기능 불필요 코드
 - 세부 설명이 필요할 경우, 한 줄 공백 후 하이픈 목록으로 작성한다
 </rule>
-<format>
 
-````[{Prefix}] {Message}
+<format>
+```
+[{Prefix}] {Message}
 - {세부내용 1}
 - {세부내용 2}
-...```
+...
+```
 
 커밋 및 푸시 하시겠습니까? (y/N)
 
-```bash git commit -m "[{Prefix}] {Message}
+```bash
+git commit -m "[{Prefix}] {Message}
 - {세부내용 1}
 - {세부내용 2}"
-git push origin {현재 브랜치}```
+git push origin {현재 브랜치}
+```
 
 PR 하시겠습니까? (y/N)
 
 Target: {mail}
 
-```bash gh pr create --fill --base main```
+```bash
+gh pr create --fill --base main
+```
+
+</format>
+</prompt>
 
 </format>
 </prompt>
