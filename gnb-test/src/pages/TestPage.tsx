@@ -4,6 +4,7 @@ function TestPage() {
       className="h-dvh bg-gray-50 flex flex-col overflow-y-scroll relative"
       style={{ WebkitTransform: "translateZ(0)" }}
     >
+      <div className="h-lvh  w-full absolute bg-blue-900/50 z-100">test</div>
       <div className="w-full bg-amber-900 flex items-center justify-center z-10 sticky top-0">
         <div className="h-100 text-white font-bold flex items-center justify-center">
           고정 헤더 (배경색 있음)
