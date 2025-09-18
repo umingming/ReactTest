@@ -76,7 +76,7 @@
   margin: 0 auto;
   padding: 2rem;
   min-height: calc(100vh - 100px);
-  overflow: hidden;
+  overflow: hidden; /* 슬라이드 전환시 화면 밖 요소 숨김 */
   position: relative;
 }
 
@@ -87,6 +87,8 @@
   padding: 3rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   min-height: 500px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .page h1 {
