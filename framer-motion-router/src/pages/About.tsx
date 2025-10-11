@@ -8,19 +8,6 @@ const About: React.FC = () => {
   const content = (
     <>
       <h1>소개 페이지</h1>
-      <p>
-        이 프로젝트는 framer-motion을 활용한 페이지 전환 효과를 테스트하기 위해
-        만들어졌습니다.
-      </p>
-      <div className="content">
-        <h2>기술 스택</h2>
-        <div className="tech-stack">
-          <div className="tech-item">React</div>
-          <div className="tech-item">TypeScript</div>
-          <div className="tech-item">Framer Motion</div>
-          <div className="tech-item">React Router</div>
-        </div>
-      </div>
     </>
   );
 
